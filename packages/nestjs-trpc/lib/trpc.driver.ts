@@ -51,10 +51,7 @@ export class TRPCDriver<
   @Inject(FastifyDriver)
   protected readonly fastifyDriver!: FastifyDriver;
 
-  @Inject(ModuleRef)
-  private readonly moduleRef!: ModuleRef;
-
-  constructor() {}
+  constructor(private moduleRef: ModuleRef) {}
 
   public async start(options: TRPCModuleOptions) {
     //@ts-expect-error Ignoring typescript here since it's the same type, yet it still isn't able to infer it.

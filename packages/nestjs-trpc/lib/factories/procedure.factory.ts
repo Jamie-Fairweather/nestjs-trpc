@@ -26,10 +26,7 @@ export class ProcedureFactory {
   @Inject(MetadataScanner)
   private readonly metadataScanner!: MetadataScanner;
 
-  @Inject(ModuleRef)
-  private readonly moduleRef!: ModuleRef;
-
-  constructor() {}
+  constructor(private moduleRef: ModuleRef) {}
 
   getProcedures(
     instance: any,
