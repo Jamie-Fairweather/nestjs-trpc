@@ -1,4 +1,5 @@
 import * as path from 'node:path';
+import * as fs from 'node:fs';
 import {
   ConsoleLogger,
   Inject,
@@ -150,8 +151,8 @@ export class TRPCGenerator implements OnModuleInit {
       );
 
       if (tsConfigFilePath) {
-        const tsConfig = this.project.addSourceFileAtPath(tsConfigFilePath);
-        const tsConfigObj = JSON.parse(tsConfig.getFullText());
+        const tsConfigContent = fs.readFileSync(tsConfigFilePath, 'utf8');
+        const tsConfigObj = JSON.parse(tsConfigContent);
         const pathAliases = tsConfigObj.compilerOptions?.paths || {};
 
         this.consoleLogger.log(
@@ -178,99 +179,104 @@ export class TRPCGenerator implements OnModuleInit {
             'TRPC Generator',
           );
 
-          if (resolvedPath) {
+          if (resolvedPath && fs.existsSync(resolvedPath)) {
             try {
-              // Add the file to the project
+              // Instead of loading with ts-morph, read file directly
               this.consoleLogger.log(
-                `Attempting to load file: ${resolvedPath}`,
+                `Reading file: ${resolvedPath}`,
                 'TRPC Generator',
               );
-              const fileToInject =
-                this.project.addSourceFileAtPathIfExists(resolvedPath);
 
-              if (fileToInject) {
-                // Get existing imports in the target file to avoid duplicates
-                const existingImports = new Set<string>();
-                this.appRouterSourceFile
-                  .getImportDeclarations()
-                  .forEach((importDecl) => {
-                    const moduleSpecifier =
-                      importDecl.getModuleSpecifierValue();
-                    existingImports.add(moduleSpecifier);
+              // Read the file content directly - much faster than ts-morph parsing
+              const fileContent = fs.readFileSync(resolvedPath, 'utf8');
 
-                    importDecl.getNamedImports().forEach((namedImport) => {
-                      existingImports.add(
-                        `${moduleSpecifier}:${namedImport.getName()}`,
-                      );
-                    });
+              // Simple regex-based extraction of imports
+              const existingImports = new Set<string>();
+              this.appRouterSourceFile
+                .getImportDeclarations()
+                .forEach((importDecl) => {
+                  const moduleSpecifier = importDecl.getModuleSpecifierValue();
+                  existingImports.add(moduleSpecifier);
+
+                  importDecl.getNamedImports().forEach((namedImport) => {
+                    existingImports.add(
+                      `${moduleSpecifier}:${namedImport.getName()}`,
+                    );
                   });
-
-                // Get the content from the file to inject
-                fileToInject.getStatements().forEach((statement) => {
-                  // Handle imports to avoid duplicates
-                  if (statement.getKindName() === 'ImportDeclaration') {
-                    const importDecl = statement;
-                    const moduleSpecifier =
-                      importDecl
-                        .getText()
-                        .match(/from\s+['"]([^'"]+)['"]/)?.[1] || '';
-
-                    // Extract named imports using regex to avoid ts-morph API complexities
-                    const namedImportsMatch = importDecl
-                      .getText()
-                      .match(/{([^}]*)}/);
-                    const namedImportsText = namedImportsMatch
-                      ? namedImportsMatch[1]
-                      : '';
-                    const namedImports = namedImportsText
-                      .split(',')
-                      .map((imp) => imp.trim())
-                      .filter((imp) => imp !== '');
-
-                    // Process each named import to avoid duplicates
-                    namedImports.forEach((namedImport) => {
-                      const importKey = `${moduleSpecifier}:${namedImport}`;
-
-                      if (!existingImports.has(importKey)) {
-                        // Import doesn't exist, add it
-                        if (!existingImports.has(moduleSpecifier)) {
-                          // Create new import declaration if module not imported yet
-                          this.appRouterSourceFile.addImportDeclaration({
-                            moduleSpecifier,
-                            namedImports: [namedImport],
-                          });
-                          existingImports.add(moduleSpecifier);
-                        } else {
-                          // Add to existing import declaration
-                          const existingImport =
-                            this.appRouterSourceFile.getImportDeclaration(
-                              (decl) =>
-                                decl.getModuleSpecifierValue() ===
-                                moduleSpecifier,
-                            );
-                          if (existingImport) {
-                            existingImport.addNamedImport(namedImport);
-                          }
-                        }
-                        existingImports.add(importKey);
-                      }
-                    });
-                  } else {
-                    // Add non-import statements directly
-                    this.appRouterSourceFile.addStatements(statement.getText());
-                  }
                 });
 
-                this.consoleLogger.log(
-                  `Successfully injected content from ${filePath} (resolved to ${resolvedPath})`,
-                  'TRPC Generator',
-                );
-              } else {
-                this.consoleLogger.warn(
-                  `File not found: ${filePath} (resolved to ${resolvedPath})`,
-                  'TRPC Generator',
-                );
+              // Extract and process imports with regex
+              const importRegex =
+                /import\s+{([^}]*)}\s+from\s+['"]([^'"]+)['"];?\s*/g;
+              let match;
+              let nonImportContent = fileContent;
+
+              // Process all imports first
+              const processedImports = new Set<string>();
+              while ((match = importRegex.exec(fileContent)) !== null) {
+                const namedImportsText = match[1];
+                const moduleSpecifier = match[2];
+
+                // Mark this part to be removed from content
+                processedImports.add(match[0]);
+
+                // Process each named import
+                const namedImports = namedImportsText
+                  .split(',')
+                  .map((imp) => imp.trim())
+                  .filter((imp) => imp !== '');
+
+                namedImports.forEach((namedImport) => {
+                  const importKey = `${moduleSpecifier}:${namedImport}`;
+
+                  if (!existingImports.has(importKey)) {
+                    if (!existingImports.has(moduleSpecifier)) {
+                      // Create new import declaration
+                      this.appRouterSourceFile.addImportDeclaration({
+                        moduleSpecifier,
+                        namedImports: [namedImport],
+                      });
+                      existingImports.add(moduleSpecifier);
+                    } else {
+                      // Add to existing import declaration
+                      const existingImport =
+                        this.appRouterSourceFile.getImportDeclaration(
+                          (decl) =>
+                            decl.getModuleSpecifierValue() === moduleSpecifier,
+                        );
+                      if (existingImport) {
+                        existingImport.addNamedImport(namedImport);
+                      }
+                    }
+                    existingImports.add(importKey);
+                  }
+                });
               }
+
+              // Remove all imports from content
+              processedImports.forEach((importStatement) => {
+                nonImportContent = nonImportContent.replace(
+                  importStatement,
+                  '',
+                );
+              });
+
+              // Clean up orphaned semicolons and extra whitespace
+              nonImportContent = nonImportContent
+                .replace(/;\s*;/g, ';') // Replace multiple semicolons with a single one
+                .replace(/^\s*;/gm, '') // Remove semicolons at the beginning of lines
+                .replace(/\s*;\s*\n/g, '\n'); // Remove trailing semicolons at the end of lines
+
+              // Add remaining non-import content
+              const cleanedContent = nonImportContent.trim();
+              if (cleanedContent) {
+                this.appRouterSourceFile.addStatements(cleanedContent);
+              }
+
+              this.consoleLogger.log(
+                `Successfully injected content from ${filePath} (resolved to ${resolvedPath})`,
+                'TRPC Generator',
+              );
             } catch (error) {
               this.consoleLogger.warn(
                 `Error injecting file ${filePath} (resolved to ${resolvedPath}): ${error}`,
@@ -279,7 +285,7 @@ export class TRPCGenerator implements OnModuleInit {
             }
           } else {
             this.consoleLogger.warn(
-              `Could not resolve path for ${filePath}`,
+              `Could not resolve path for ${filePath} or file doesn't exist`,
               'TRPC Generator',
             );
           }
@@ -361,6 +367,7 @@ export class TRPCGenerator implements OnModuleInit {
   }
 
   private buildRootImportsMap(): Map<string, SourceFileImportsMap> {
+    // This also needs optimization but we'll handle it differently since we need the sourceFile
     const rootModuleSourceFile = this.project.addSourceFileAtPathIfExists(
       this.moduleCallerFilePath,
     );
