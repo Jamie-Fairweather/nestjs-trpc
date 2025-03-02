@@ -16,5 +16,4 @@ export class CatsController {
   returnBla() {
     return 'This action returns all cats';
   }
-
 }

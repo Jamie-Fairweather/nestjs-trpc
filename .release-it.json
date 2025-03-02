@@ -1,38 +1,38 @@
 {
-    "$schema": "https://unpkg.com/release-it@17/schema/release-it.json",
-    "git": {
-      "commitMessage": "chore: release v${version}"
+  "$schema": "https://unpkg.com/release-it@17/schema/release-it.json",
+  "git": {
+    "commitMessage": "chore: release v${version}"
+  },
+  "github": {
+    "release": true
+  },
+  "npm": false,
+  "plugins": {
+    "@release-it-plugins/workspaces": {
+      "publish": true,
+      "workspaces": ["packages/*"]
     },
-    "github": {
-      "release": true
-    },
-    "npm": false,
-    "plugins": {
-      "@release-it-plugins/workspaces": {
-        "publish": true,
-        "workspaces": ["packages/*"]
-      },
-      "@release-it/conventional-changelog": {
-        "infile": "CHANGELOG.md",
-        "header": "# Changelog",
-        "ignoreRecommendedBump": true,
-        "preset": {
-          "name": "conventionalcommits",
-          "types": [
-            {
-              "type": "feat",
-              "section": "Features"
-            },
-            {
-              "type": "fix",
-              "section": "Bug Fixes"
-            },
-            {
-              "type": "docs",
-              "section": "Docs"
-            }
-          ]
-        }
+    "@release-it/conventional-changelog": {
+      "infile": "CHANGELOG.md",
+      "header": "# Changelog",
+      "ignoreRecommendedBump": true,
+      "preset": {
+        "name": "conventionalcommits",
+        "types": [
+          {
+            "type": "feat",
+            "section": "Features"
+          },
+          {
+            "type": "fix",
+            "section": "Bug Fixes"
+          },
+          {
+            "type": "docs",
+            "section": "Docs"
+          }
+        ]
       }
     }
   }
+}
