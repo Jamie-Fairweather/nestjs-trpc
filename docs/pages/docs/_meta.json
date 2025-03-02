@@ -25,6 +25,7 @@
   "middlewares": "Middlewares",
   "context": "Context",
   "dependency-injection": "Dependency Injection",
+  "app-router-host": "App Router Host",
   "client": "Client Usage",
   "integrations": "Integrations",
 

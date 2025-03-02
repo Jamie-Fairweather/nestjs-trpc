@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.7.0 (2025-03-02)
+
+* feat: added compatibility with NestJS v11
+* feat: fixed dependency injection issues with `ModuleRef` and `HttpAdapterHost` in NestJS v11
+* feat: added safe router access methods to `AppRouterHost`
+* feat: added file injection feature for including external files in generated output
+* feat: improved path alias resolution for file injection
+* docs: added documentation for the new `AppRouterHost` features
+* docs: updated examples to use safe router access methods
+
 ## <small>1.6.1 (2024-10-30)</small>
 
 ## 1.6.0 (2024-10-30)

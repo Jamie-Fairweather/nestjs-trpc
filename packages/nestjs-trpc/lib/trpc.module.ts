@@ -1,6 +1,6 @@
 import { ConsoleLogger, Inject, Module } from '@nestjs/common';
 import { DynamicModule, OnModuleInit } from '@nestjs/common/interfaces';
-import { HttpAdapterHost } from '@nestjs/core';
+import { HttpAdapterHost, ModuleRef } from '@nestjs/core';
 
 import { LOGGER_CONTEXT, TRPC_MODULE_OPTIONS } from './trpc.constants';
 
@@ -18,6 +18,22 @@ import { ScannerModule } from './scanners/scanner.module';
   providers: [
     // NestJS Providers
     ConsoleLogger,
+    {
+      provide: ModuleRef,
+      useFactory: () => {
+        // The actual ModuleRef will be provided by NestJS
+        // This is just a placeholder to satisfy the provider requirement
+        return {};
+      },
+    },
+    {
+      provide: HttpAdapterHost,
+      useFactory: () => {
+        // The actual HttpAdapterHost will be provided by NestJS
+        // This is just a placeholder to satisfy the provider requirement
+        return {};
+      },
+    },
 
     // Drivers
     TRPCDriver,
