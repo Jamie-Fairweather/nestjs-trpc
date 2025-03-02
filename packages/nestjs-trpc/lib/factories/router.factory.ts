@@ -100,7 +100,7 @@ export class RouterFactory {
       );
 
       // TODO: To get this working with `trpc` v11, we need to remove the `router()` method from here.
-      routerSchema[camelCasedRouterName] = router(routerProcedures);
+      routerSchema[camelCasedRouterName] = routerProcedures;
     });
 
     return routerSchema;
