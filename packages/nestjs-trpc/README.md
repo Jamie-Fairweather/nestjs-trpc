@@ -42,6 +42,51 @@
 - 📦&nbsp; Out of the box support for **Dependency Injection** within the routes and procedures.
 - 👀&nbsp; Native support for `express`, `fastify`, and `zod` with more drivers to come!
 
+## Configuration Options
+
+### Inject External Files
+
+You can inject the contents of external files into the generated output using the `injectFiles` option:
+
+```typescript
+TRPCModule.forRoot({
+  autoSchemaFile: './trpc/generated',
+  injectFiles: [
+    '@/shared/schemas.ts',        // Using path alias from tsconfig.json
+    './src/common/validators.ts', // Using relative path
+  ],
+});
+```
+
+This feature is useful when you need to:
+- Share code between the generated output and your application
+- Include common utility functions, types, or validators
+- Reuse schemas across multiple parts of your application
+
+#### Path Resolution
+
+The file paths are resolved based on the TypeScript path aliases from your tsconfig.json, making this feature compatible with monorepos. Here's how paths are resolved:
+
+1. **Path alias resolution**: If your tsconfig.json has path mappings like:
+
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+A path like `@/zod/index.ts` will be transformed to `./src/zod/index.ts` and resolved relative to the location of the tsconfig.json file.
+
+2. **Relative paths**: Paths starting with `./` or `../` are resolved relative to the tsconfig.json location.
+
+3. **Absolute paths**: Paths that are already absolute (e.g., `/usr/local/file.ts` on Unix or `C:\path\to\file.ts` on Windows) are used as-is.
+
+The injector handles duplicate imports automatically to ensure the final output is clean.
+
 ## Quickstart
 
 ### Installation

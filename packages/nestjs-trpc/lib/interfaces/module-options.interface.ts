@@ -29,6 +29,14 @@ export interface TRPCModuleOptions {
   schemaFileImports?: Array<SchemaImports>;
 
   /**
+   * Specifies file paths whose contents should be injected into the generated output.
+   * The file paths are resolved based on the TypeScript path aliases from the tsconfig,
+   * making this feature compatible with monorepos.
+   * The injector will handle duplicate imports to ensure the final output is clean.
+   */
+  injectFiles?: Array<string>;
+
+  /**
    * The base path for all trpc requests.
    * @default "/trpc"
    */

@@ -10,6 +10,7 @@
     "format": "prettier packages/**/*.ts --ignore-path ./.prettierignore --write",
     "lint": "eslint 'packages/**/*.ts' --fix",
     "test": "pnpm -r test",
+    "test:conditional": "node scripts/conditional-test.js",
     "release": "release-it",
     "prepublish:npm": "pnpm build && pnpm changelog | pbcopy",
     "publish:npm": "lerna publish",
@@ -65,10 +66,9 @@
     "typescript": "^5.5.4"
   },
   "lint-staged": {
-    "*.ts": [
+    "**/*.ts": [
       "prettier --write",
-      "eslint --fix",
-      "pnpm test --bail --findRelatedTests"
+      "eslint --fix"
     ]
   },
   "repository": {

@@ -7,6 +7,10 @@ import {
 } from '@nestjs/common';
 import { Project, SourceFile } from 'ts-morph';
 import { saveOrOverrideFile } from '../utils/ts-morph.util';
+import {
+  findTsConfigFile,
+  resolvePathWithAliases,
+} from '../utils/path-resolution.util';
 import { RouterGenerator } from './router.generator';
 import { SchemaImports, TRPCContext } from '../interfaces';
 import { MiddlewareGenerator } from './middleware.generator';
@@ -73,6 +77,7 @@ export class TRPCGenerator implements OnModuleInit {
 
   public async generateSchemaFile(
     schemaImports?: Array<SchemaImports> | undefined,
+    injectFiles?: Array<string> | undefined,
   ): Promise<void> {
     try {
       const routers = this.routerFactory.getRouters();
@@ -100,6 +105,11 @@ export class TRPCGenerator implements OnModuleInit {
         );
       }
 
+      // Handle injected files if specified
+      if (injectFiles != null && injectFiles.length > 0) {
+        await this.injectFilesContent(injectFiles);
+      }
+
       const routersMetadata = this.serializerHandler.serializeRouters(
         mappedRoutesAndProcedures,
         this.project,
@@ -123,6 +133,168 @@ export class TRPCGenerator implements OnModuleInit {
       );
     } catch (error: unknown) {
       this.consoleLogger.warn('TRPC Generator encountered an error.', error);
+    }
+  }
+
+  /**
+   * Injects the contents of specified files into the generated output
+   * It resolves file paths based on the TypeScript path aliases from tsconfig
+   * and handles duplicate imports
+   */
+  private async injectFilesContent(filePaths: Array<string>): Promise<void> {
+    try {
+      // Get tsconfig for resolving path aliases
+      const tsConfigFilePath = findTsConfigFile(
+        this.moduleCallerFilePath,
+        this.consoleLogger,
+      );
+
+      if (tsConfigFilePath) {
+        const tsConfig = this.project.addSourceFileAtPath(tsConfigFilePath);
+        const tsConfigObj = JSON.parse(tsConfig.getFullText());
+        const pathAliases = tsConfigObj.compilerOptions?.paths || {};
+
+        this.consoleLogger.log(
+          `Found path aliases in tsconfig: ${JSON.stringify(pathAliases)}`,
+          'TRPC Generator',
+        );
+
+        for (const filePath of filePaths) {
+          this.consoleLogger.log(
+            `Resolving file path: ${filePath}`,
+            'TRPC Generator',
+          );
+
+          // Resolve the file path using TypeScript path aliases
+          const resolvedPath = resolvePathWithAliases(
+            filePath,
+            pathAliases,
+            path.dirname(tsConfigFilePath),
+            this.consoleLogger,
+          );
+
+          this.consoleLogger.log(
+            `Resolved path: ${resolvedPath || 'null'}`,
+            'TRPC Generator',
+          );
+
+          if (resolvedPath) {
+            try {
+              // Add the file to the project
+              this.consoleLogger.log(
+                `Attempting to load file: ${resolvedPath}`,
+                'TRPC Generator',
+              );
+              const fileToInject =
+                this.project.addSourceFileAtPathIfExists(resolvedPath);
+
+              if (fileToInject) {
+                // Get existing imports in the target file to avoid duplicates
+                const existingImports = new Set<string>();
+                this.appRouterSourceFile
+                  .getImportDeclarations()
+                  .forEach((importDecl) => {
+                    const moduleSpecifier =
+                      importDecl.getModuleSpecifierValue();
+                    existingImports.add(moduleSpecifier);
+
+                    importDecl.getNamedImports().forEach((namedImport) => {
+                      existingImports.add(
+                        `${moduleSpecifier}:${namedImport.getName()}`,
+                      );
+                    });
+                  });
+
+                // Get the content from the file to inject
+                fileToInject.getStatements().forEach((statement) => {
+                  // Handle imports to avoid duplicates
+                  if (statement.getKindName() === 'ImportDeclaration') {
+                    const importDecl = statement;
+                    const moduleSpecifier =
+                      importDecl
+                        .getText()
+                        .match(/from\s+['"]([^'"]+)['"]/)?.[1] || '';
+
+                    // Extract named imports using regex to avoid ts-morph API complexities
+                    const namedImportsMatch = importDecl
+                      .getText()
+                      .match(/{([^}]*)}/);
+                    const namedImportsText = namedImportsMatch
+                      ? namedImportsMatch[1]
+                      : '';
+                    const namedImports = namedImportsText
+                      .split(',')
+                      .map((imp) => imp.trim())
+                      .filter((imp) => imp !== '');
+
+                    // Process each named import to avoid duplicates
+                    namedImports.forEach((namedImport) => {
+                      const importKey = `${moduleSpecifier}:${namedImport}`;
+
+                      if (!existingImports.has(importKey)) {
+                        // Import doesn't exist, add it
+                        if (!existingImports.has(moduleSpecifier)) {
+                          // Create new import declaration if module not imported yet
+                          this.appRouterSourceFile.addImportDeclaration({
+                            moduleSpecifier,
+                            namedImports: [namedImport],
+                          });
+                          existingImports.add(moduleSpecifier);
+                        } else {
+                          // Add to existing import declaration
+                          const existingImport =
+                            this.appRouterSourceFile.getImportDeclaration(
+                              (decl) =>
+                                decl.getModuleSpecifierValue() ===
+                                moduleSpecifier,
+                            );
+                          if (existingImport) {
+                            existingImport.addNamedImport(namedImport);
+                          }
+                        }
+                        existingImports.add(importKey);
+                      }
+                    });
+                  } else {
+                    // Add non-import statements directly
+                    this.appRouterSourceFile.addStatements(statement.getText());
+                  }
+                });
+
+                this.consoleLogger.log(
+                  `Successfully injected content from ${filePath} (resolved to ${resolvedPath})`,
+                  'TRPC Generator',
+                );
+              } else {
+                this.consoleLogger.warn(
+                  `File not found: ${filePath} (resolved to ${resolvedPath})`,
+                  'TRPC Generator',
+                );
+              }
+            } catch (error) {
+              this.consoleLogger.warn(
+                `Error injecting file ${filePath} (resolved to ${resolvedPath}): ${error}`,
+                'TRPC Generator',
+              );
+            }
+          } else {
+            this.consoleLogger.warn(
+              `Could not resolve path for ${filePath}`,
+              'TRPC Generator',
+            );
+          }
+        }
+      } else {
+        this.consoleLogger.warn(
+          'Could not find tsconfig.json file',
+          'TRPC Generator',
+        );
+      }
+    } catch (error) {
+      this.consoleLogger.warn(
+        `Error injecting files: ${error}`,
+        'TRPC Generator',
+      );
     }
   }
 

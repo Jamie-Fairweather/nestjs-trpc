@@ -56,6 +56,7 @@ export class TRPCModule implements OnModuleInit {
           outputDirPath: options.autoSchemaFile,
           rootModuleFilePath: callerFilePath,
           schemaFileImports: options.schemaFileImports,
+          injectFiles: options.injectFiles,
           context: options.context,
         }),
       );
