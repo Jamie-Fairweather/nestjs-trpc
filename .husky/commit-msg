@@ -1,1 +1,1 @@
-yarn commitlint -c --config .commitlintrc.json -E --edit
+pnpm commitlint -c --config .commitlintrc.json -E --edit

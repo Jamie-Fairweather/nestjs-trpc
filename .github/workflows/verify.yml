@@ -17,13 +17,20 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           submodules: false
-      - name: Enable Corepack
-        run: corepack enable
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
       - name: Lint
-        run: yarn lint --no-fix
+        run: pnpm lint
       - name: Test
-        run: yarn test
+        run: pnpm test
       - name: Build
-        run: yarn build
+        run: pnpm build

@@ -9,11 +9,11 @@
     "clean": "tsc -b --clean",
     "format": "prettier packages/**/*.ts --ignore-path ./.prettierignore --write",
     "lint": "eslint 'packages/**/*.ts' --fix",
-    "test": "yarn workspaces foreach --all run test",
+    "test": "pnpm -r test",
     "release": "release-it",
-    "prepublish:npm": "yarn build && yarn changelog | pbcopy",
+    "prepublish:npm": "pnpm build && pnpm changelog | pbcopy",
     "publish:npm": "lerna publish",
-    "prepublish:next": "yarn build",
+    "prepublish:next": "pnpm build",
     "publish:next": "lerna publish --dist-tag next",
     "prepack": "pinst --disable",
     "postinstall": "husky",
@@ -27,7 +27,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": "18 || 19 || 20"
+    "node": "18 || 19 || 20 || 22"
   },
   "workspaces": [
     "packages/*",
@@ -68,12 +68,12 @@
     "*.ts": [
       "prettier --write",
       "eslint --fix",
-      "yarn test --bail --findRelatedTests"
+      "pnpm test --bail --findRelatedTests"
     ]
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/KevinEdry/nestjs-trpc"
   },
-  "packageManager": "yarn@4.4.0"
+  "packageManager": "pnpm@8.15.4"
 }
