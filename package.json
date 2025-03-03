@@ -60,7 +60,7 @@
     "pinst": "^3.0.0",
     "prettier": "^3.3.3",
     "release-it": "17.1.1",
-    "rimraf": "^4.4.1",
+    "rimraf": "^6.0.0",
     "ts-jest": "29.2.6",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.4"
