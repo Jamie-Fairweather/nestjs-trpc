@@ -107,6 +107,6 @@ class UserRouter {
 
 <a href="https://github.com/KevinEdry/nestjs-trpc/graphs/contributors">
   <p align="center">
-    <img width="720" height="50" src="https://contrib.rocks/image?repo=kevinedry/nestjs-trpc" alt="A table of avatars from the project's contributors" />
+    <img width="720" height="50" src="https://contrib.rocks/image?repo=Jamie-Fairweather/nestjs-trpc" alt="A table of avatars from the project's contributors" />
   </p>
 </a>
