@@ -363,10 +363,10 @@ importers:
     devDependencies:
       '@nestjs/common':
         specifier: ^11.0.0
-        version: 11.0.11(reflect-metadata@0.1.13)(rxjs@7.8.1)
+        version: 11.0.11(reflect-metadata@0.1.13)(rxjs@7.8.2)
       '@nestjs/core':
         specifier: ^11.0.0
-        version: 11.0.11(@nestjs/common@11.0.11)(reflect-metadata@0.1.13)(rxjs@7.8.1)
+        version: 11.0.11(@nestjs/common@11.0.11)(reflect-metadata@0.1.13)(rxjs@7.8.2)
       '@nestjs/testing':
         specifier: ^11.0.0
         version: 11.0.11(@nestjs/common@11.0.11)(@nestjs/core@11.0.11)
@@ -395,8 +395,8 @@ importers:
         specifier: 0.1.13
         version: 0.1.13
       rxjs:
-        specifier: 7.8.1
-        version: 7.8.1
+        specifier: 7.8.2
+        version: 7.8.2
       ts-jest:
         specifier: ^29.2.5
         version: 29.2.6(@babel/core@7.26.9)(jest@29.7.0)(typescript@5.5.3)
@@ -3033,7 +3033,7 @@ packages:
       uid: 2.0.2
     dev: false
 
-  /@nestjs/common@11.0.11(reflect-metadata@0.1.13)(rxjs@7.8.1):
+  /@nestjs/common@11.0.11(reflect-metadata@0.1.13)(rxjs@7.8.2):
     resolution: {integrity: sha512-b3zYiho5/XGCnLa7W2hHv5ecSBR1huQrXCHu6pxd+g2HY2B7sKP5CXHMv4gHYqpIqu4ClOb7Q4tLKXMp9LyLUg==}
     peerDependencies:
       class-transformer: '*'
@@ -3048,7 +3048,7 @@ packages:
     dependencies:
       iterare: 1.2.1
       reflect-metadata: 0.1.13
-      rxjs: 7.8.1
+      rxjs: 7.8.2
       tslib: 2.8.1
       uid: 2.0.2
     dev: true
@@ -3098,7 +3098,7 @@ packages:
       - encoding
     dev: false
 
-  /@nestjs/core@11.0.11(@nestjs/common@11.0.11)(reflect-metadata@0.1.13)(rxjs@7.8.1):
+  /@nestjs/core@11.0.11(@nestjs/common@11.0.11)(reflect-metadata@0.1.13)(rxjs@7.8.2):
     resolution: {integrity: sha512-jMH3jrjrPiaGrkQ5hANNcgDWN+j+hcM5GMQ3jSs4vOWNs3lmKHTVR11wJ9y5tTNnwKydzMogeju0VTUdfXDI5Q==}
     engines: {node: '>= 20'}
     requiresBuild: true
@@ -3117,13 +3117,13 @@ packages:
       '@nestjs/websockets':
         optional: true
     dependencies:
-      '@nestjs/common': 11.0.11(reflect-metadata@0.1.13)(rxjs@7.8.1)
+      '@nestjs/common': 11.0.11(reflect-metadata@0.1.13)(rxjs@7.8.2)
       '@nuxt/opencollective': 0.4.1
       fast-safe-stringify: 2.1.1
       iterare: 1.2.1
       path-to-regexp: 8.2.0
       reflect-metadata: 0.1.13
-      rxjs: 7.8.1
+      rxjs: 7.8.2
       tslib: 2.8.1
       uid: 2.0.2
     dev: true
@@ -3226,8 +3226,8 @@ packages:
       '@nestjs/platform-express':
         optional: true
     dependencies:
-      '@nestjs/common': 11.0.11(reflect-metadata@0.1.13)(rxjs@7.8.1)
-      '@nestjs/core': 11.0.11(@nestjs/common@11.0.11)(reflect-metadata@0.1.13)(rxjs@7.8.1)
+      '@nestjs/common': 11.0.11(reflect-metadata@0.1.13)(rxjs@7.8.2)
+      '@nestjs/core': 11.0.11(@nestjs/common@11.0.11)(reflect-metadata@0.1.13)(rxjs@7.8.2)
       tslib: 2.8.1
     dev: true
 
@@ -9071,7 +9071,7 @@ packages:
       mute-stream: 0.0.8
       ora: 5.4.1
       run-async: 2.4.1
-      rxjs: 7.8.1
+      rxjs: 7.8.2
       string-width: 4.2.3
       strip-ansi: 6.0.1
       through: 2.3.8
@@ -9092,7 +9092,7 @@ packages:
       mute-stream: 0.0.8
       ora: 5.4.1
       run-async: 2.4.1
-      rxjs: 7.8.1
+      rxjs: 7.8.2
       string-width: 4.2.3
       strip-ansi: 6.0.1
       through: 2.3.8
@@ -9113,7 +9113,7 @@ packages:
       mute-stream: 0.0.8
       ora: 5.4.1
       run-async: 2.4.1
-      rxjs: 7.8.1
+      rxjs: 7.8.2
       string-width: 4.2.3
       strip-ansi: 6.0.1
       through: 2.3.8
@@ -9135,7 +9135,7 @@ packages:
       mute-stream: 1.0.0
       ora: 5.4.1
       run-async: 3.0.0
-      rxjs: 7.8.1
+      rxjs: 7.8.2
       string-width: 4.2.3
       strip-ansi: 6.0.1
       wrap-ansi: 6.2.0
@@ -9156,7 +9156,7 @@ packages:
       mute-stream: 1.0.0
       ora: 5.4.1
       run-async: 3.0.0
-      rxjs: 7.8.1
+      rxjs: 7.8.2
       string-width: 4.2.3
       strip-ansi: 6.0.1
       wrap-ansi: 6.2.0
@@ -9173,7 +9173,7 @@ packages:
       mute-stream: 1.0.0
       ora: 5.4.1
       run-async: 3.0.0
-      rxjs: 7.8.1
+      rxjs: 7.8.2
       string-width: 4.2.3
       strip-ansi: 6.0.1
       wrap-ansi: 6.2.0
@@ -13381,6 +13381,12 @@ packages:
     resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
     dependencies:
       tslib: 2.8.1
+
+  /rxjs@7.8.2:
+    resolution: {integrity: sha512-dhKf903U/PQZY6boNNtAGdWbG85WAbjT/1xYoZIC7FAY0yWapOBQVsVrDl58W86//e1VpMNBtRV4MaXfdMySFA==}
+    dependencies:
+      tslib: 2.8.1
+    dev: true
 
   /sade@1.8.1:
     resolution: {integrity: sha512-xal3CZX1Xlo/k4ApwCFrHVACi9fBqJ7V+mwhBsuf/1IOKbBy098Fex+Wa/5QMubw09pSZ/u8EY8PWgevJsXp1A==}
