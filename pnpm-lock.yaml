@@ -30,8 +30,8 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0(release-it@17.11.0)
       '@release-it/conventional-changelog':
-        specifier: ^8.0.1
-        version: 8.0.2(release-it@17.11.0)
+        specifier: ^10.0.0
+        version: 10.0.0(release-it@17.11.0)
       '@types/jest':
         specifier: 29.5.14
         version: 29.5.14
@@ -319,23 +319,23 @@ importers:
         version: 10.45.2
       next:
         specifier: 13.4.7
-        version: 13.4.7(@babel/core@7.26.9)(react-dom@18.3.1)(react@18.3.1)
+        version: 13.4.7(@babel/core@7.26.9)(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: 18.2.0
-        version: 18.3.1
+        version: 18.2.0
       react-dom:
         specifier: 18.2.0
-        version: 18.3.1(react@18.3.1)
+        version: 18.2.0(react@18.2.0)
     devDependencies:
       '@types/node':
         specifier: 18.11.18
         version: 18.11.18
       '@types/react':
         specifier: 18.2.14
-        version: 18.3.18
+        version: 18.2.14
       '@types/react-dom':
         specifier: 18.2.6
-        version: 18.3.5(@types/react@18.3.18)
+        version: 18.2.6
       autoprefixer:
         specifier: 10.4.14
         version: 10.4.14(postcss@8.4.24)
@@ -2066,7 +2066,7 @@ packages:
       chalk: 5.4.1
     dev: true
 
-  /@conventional-changelog/git-client@1.0.1:
+  /@conventional-changelog/git-client@1.0.1(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.1.0):
     resolution: {integrity: sha512-PJEqBwAleffCMETaVm/fUgHldzBE35JFk3/9LL6NUA5EXa3qednu+UT6M7E5iBu3zIQZCULYIiZ90fBYHt6xUw==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -2079,6 +2079,8 @@ packages:
         optional: true
     dependencies:
       '@types/semver': 7.5.8
+      conventional-commits-filter: 5.0.0
+      conventional-commits-parser: 6.1.0
       semver: 7.7.1
     dev: true
 
@@ -2882,7 +2884,7 @@ packages:
       react: '>=16'
     dependencies:
       '@types/mdx': 2.0.13
-      '@types/react': 18.3.18
+      '@types/react': 18.2.14
       react: 18.3.1
     dev: false
 
@@ -3881,16 +3883,16 @@ packages:
       yaml: 2.7.0
     dev: true
 
-  /@release-it/conventional-changelog@8.0.2(release-it@17.11.0):
-    resolution: {integrity: sha512-WpnWWRr7O0JeLoiejLrPEWnnwFhCscBn1wBTAXeitiz2/Ifaol0s+t8otf/HYq/OiQOri2iH8d0CnVb72tBdIQ==}
-    engines: {node: ^18.18.0 || ^20.9.0 || ^22.0.0}
+  /@release-it/conventional-changelog@10.0.0(release-it@17.11.0):
+    resolution: {integrity: sha512-49qf9phGmPUIGpY2kwfgehs9en1znbPv2zdNn1WMLAH9DtHUh4m6KNSB+mLFGAMUhv24JhsA8ruYRYgluc2UJw==}
+    engines: {node: ^20.9.0 || >=22.0.0}
     peerDependencies:
-      release-it: ^17.0.0
+      release-it: ^18.0.0
     dependencies:
       concat-stream: 2.0.0
-      conventional-changelog: 5.1.0
-      conventional-recommended-bump: 9.0.0
-      git-semver-tags: 8.0.0
+      conventional-changelog: 6.0.0
+      conventional-recommended-bump: 10.0.0
+      git-semver-tags: 8.0.0(conventional-commits-parser@6.1.0)
       release-it: 17.11.0(typescript@5.8.2)
       semver: 7.7.1
     transitivePeerDependencies:
@@ -4616,6 +4618,12 @@ packages:
     resolution: {integrity: sha512-hKormJbkJqzQGhziax5PItDUTMAM9uE2XXQmM37dyd4hVM+5aVl7oVxMVUiVQn2oCQFN/LKCZdvSM0pFRqbSmQ==}
     dev: true
 
+  /@types/react-dom@18.2.6:
+    resolution: {integrity: sha512-2et4PDvg6PVCyS7fuTc4gPoksV58bW0RwSxWKcPRcHZf0PRUGq03TKcD/rUHe3azfV6/5/biUBJw+HhCQjaP0A==}
+    dependencies:
+      '@types/react': 18.2.14
+    dev: true
+
   /@types/react-dom@18.3.5(@types/react@18.3.18):
     resolution: {integrity: sha512-P4t6saawp+b/dFrUr2cvkVsfvPguwsxtH6dNIYRllMsefqFzkZk5UIjzyDOv5g1dXIPdG4Sp1yCR4Z6RCUsG/Q==}
     peerDependencies:
@@ -4624,17 +4632,28 @@ packages:
       '@types/react': 18.3.18
     dev: true
 
+  /@types/react@18.2.14:
+    resolution: {integrity: sha512-A0zjq+QN/O0Kpe30hA1GidzyFjatVvrpIvWLxD+xv67Vt91TWWgco9IvrJBkeyHm1trGaFS/FSGqPlhyeZRm0g==}
+    dependencies:
+      '@types/prop-types': 15.7.14
+      '@types/scheduler': 0.23.0
+      csstype: 3.1.3
+
   /@types/react@18.3.18:
     resolution: {integrity: sha512-t4yC+vtgnkYjNSKlFx1jkAhH8LgTo2N/7Qvi83kdEaUtMDiwpbLAktKDaAMlRcJ5eSxZkH74eEGt1ky31d7kfQ==}
     dependencies:
       '@types/prop-types': 15.7.14
       csstype: 3.1.3
+    dev: true
 
   /@types/responselike@1.0.3:
     resolution: {integrity: sha512-H/+L+UkTV33uf49PH5pCAUBVPNj2nDBXTN+qS1dOwyyg24l3CcicicCA7ca+HMvJBZcFgl5r8e+RR6elsb4Lyw==}
     dependencies:
       '@types/node': 22.13.8
     dev: true
+
+  /@types/scheduler@0.23.0:
+    resolution: {integrity: sha512-YIoDCTH3Af6XM5VuwGG/QL/CJqga1Zm3NkU3HZ4ZHK2fRMPYP1VczsTUqtsf43PH/iJNVlPHAo2oWX7BSdB2Hw==}
 
   /@types/semver@7.5.8:
     resolution: {integrity: sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==}
@@ -6085,14 +6104,21 @@ packages:
       compare-func: 2.0.0
     dev: true
 
-  /conventional-changelog-atom@4.0.0:
-    resolution: {integrity: sha512-q2YtiN7rnT1TGwPTwjjBSIPIzDJCRE+XAUahWxnh+buKK99Kks4WLMHoexw38GXx9OUxAsrp44f9qXe5VEMYhw==}
-    engines: {node: '>=16'}
+  /conventional-changelog-angular@8.0.0:
+    resolution: {integrity: sha512-CLf+zr6St0wIxos4bmaKHRXWAcsCXrJU6F4VdNDrGRK3B8LDLKoX3zuMV5GhtbGkVR/LohZ6MT6im43vZLSjmA==}
+    engines: {node: '>=18'}
+    dependencies:
+      compare-func: 2.0.0
     dev: true
 
-  /conventional-changelog-codemirror@4.0.0:
-    resolution: {integrity: sha512-hQSojc/5imn1GJK3A75m9hEZZhc3urojA5gMpnar4JHmgLnuM3CUIARPpEk86glEKr3c54Po3WV/vCaO/U8g3Q==}
-    engines: {node: '>=16'}
+  /conventional-changelog-atom@5.0.0:
+    resolution: {integrity: sha512-WfzCaAvSCFPkznnLgLnfacRAzjgqjLUjvf3MftfsJzQdDICqkOOpcMtdJF3wTerxSpv2IAAjX8doM3Vozqle3g==}
+    engines: {node: '>=18'}
+    dev: true
+
+  /conventional-changelog-codemirror@5.0.0:
+    resolution: {integrity: sha512-8gsBDI5Y3vrKUCxN6Ue8xr6occZ5nsDEc4C7jO/EovFGozx8uttCAyfhRrvoUAWi2WMm3OmYs+0mPJU7kQdYWQ==}
+    engines: {node: '>=18'}
     dev: true
 
   /conventional-changelog-conventionalcommits@7.0.2:
@@ -6109,87 +6135,89 @@ packages:
       compare-func: 2.0.0
     dev: true
 
-  /conventional-changelog-core@7.0.0:
-    resolution: {integrity: sha512-UYgaB1F/COt7VFjlYKVE/9tTzfU3VUq47r6iWf6lM5T7TlOxr0thI63ojQueRLIpVbrtHK4Ffw+yQGduw2Bhdg==}
-    engines: {node: '>=16'}
+  /conventional-changelog-core@8.0.0:
+    resolution: {integrity: sha512-EATUx5y9xewpEe10UEGNpbSHRC6cVZgO+hXQjofMqpy+gFIrcGvH3Fl6yk2VFKh7m+ffenup2N7SZJYpyD9evw==}
+    engines: {node: '>=18'}
     dependencies:
       '@hutson/parse-repository-url': 5.0.0
       add-stream: 1.0.0
-      conventional-changelog-writer: 7.0.1
-      conventional-commits-parser: 5.0.0
-      git-raw-commits: 4.0.0
-      git-semver-tags: 7.0.1
+      conventional-changelog-writer: 8.0.1
+      conventional-commits-parser: 6.1.0
+      git-raw-commits: 5.0.0(conventional-commits-parser@6.1.0)
+      git-semver-tags: 8.0.0(conventional-commits-parser@6.1.0)
       hosted-git-info: 7.0.2
       normalize-package-data: 6.0.2
-      read-pkg: 8.1.0
-      read-pkg-up: 10.1.0
+      read-package-up: 11.0.0
+      read-pkg: 9.0.1
+    transitivePeerDependencies:
+      - conventional-commits-filter
     dev: true
 
-  /conventional-changelog-ember@4.0.0:
-    resolution: {integrity: sha512-D0IMhwcJUg1Y8FSry6XAplEJcljkHVlvAZddhhsdbL1rbsqRsMfGx/PIkPYq0ru5aDgn+OxhQ5N5yR7P9mfsvA==}
-    engines: {node: '>=16'}
+  /conventional-changelog-ember@5.0.0:
+    resolution: {integrity: sha512-RPflVfm5s4cSO33GH/Ey26oxhiC67akcxSKL8CLRT3kQX2W3dbE19sSOM56iFqUJYEwv9mD9r6k79weWe1urfg==}
+    engines: {node: '>=18'}
     dev: true
 
-  /conventional-changelog-eslint@5.0.0:
-    resolution: {integrity: sha512-6JtLWqAQIeJLn/OzUlYmzd9fKeNSWmQVim9kql+v4GrZwLx807kAJl3IJVc3jTYfVKWLxhC3BGUxYiuVEcVjgA==}
-    engines: {node: '>=16'}
+  /conventional-changelog-eslint@6.0.0:
+    resolution: {integrity: sha512-eiUyULWjzq+ybPjXwU6NNRflApDWlPEQEHvI8UAItYW/h22RKkMnOAtfCZxMmrcMO1OKUWtcf2MxKYMWe9zJuw==}
+    engines: {node: '>=18'}
     dev: true
 
-  /conventional-changelog-express@4.0.0:
-    resolution: {integrity: sha512-yWyy5c7raP9v7aTvPAWzqrztACNO9+FEI1FSYh7UP7YT1AkWgv5UspUeB5v3Ibv4/o60zj2o9GF2tqKQ99lIsw==}
-    engines: {node: '>=16'}
+  /conventional-changelog-express@5.0.0:
+    resolution: {integrity: sha512-D8Q6WctPkQpvr2HNCCmwU5GkX22BVHM0r4EW8vN0230TSyS/d6VQJDAxGb84lbg0dFjpO22MwmsikKL++Oo/oQ==}
+    engines: {node: '>=18'}
     dev: true
 
-  /conventional-changelog-jquery@5.0.0:
-    resolution: {integrity: sha512-slLjlXLRNa/icMI3+uGLQbtrgEny3RgITeCxevJB+p05ExiTgHACP5p3XiMKzjBn80n+Rzr83XMYfRInEtCPPw==}
-    engines: {node: '>=16'}
+  /conventional-changelog-jquery@6.0.0:
+    resolution: {integrity: sha512-2kxmVakyehgyrho2ZHBi90v4AHswkGzHuTaoH40bmeNqUt20yEkDOSpw8HlPBfvEQBwGtbE+5HpRwzj6ac2UfA==}
+    engines: {node: '>=18'}
     dev: true
 
-  /conventional-changelog-jshint@4.0.0:
-    resolution: {integrity: sha512-LyXq1bbl0yG0Ai1SbLxIk8ZxUOe3AjnlwE6sVRQmMgetBk+4gY9EO3d00zlEt8Y8gwsITytDnPORl8al7InTjg==}
-    engines: {node: '>=16'}
+  /conventional-changelog-jshint@5.0.0:
+    resolution: {integrity: sha512-gGNphSb/opc76n2eWaO6ma4/Wqu3tpa2w7i9WYqI6Cs2fncDSI2/ihOfMvXveeTTeld0oFvwMVNV+IYQIk3F3g==}
+    engines: {node: '>=18'}
     dependencies:
       compare-func: 2.0.0
     dev: true
 
-  /conventional-changelog-preset-loader@4.1.0:
-    resolution: {integrity: sha512-HozQjJicZTuRhCRTq4rZbefaiCzRM2pr6u2NL3XhrmQm4RMnDXfESU6JKu/pnKwx5xtdkYfNCsbhN5exhiKGJA==}
-    engines: {node: '>=16'}
+  /conventional-changelog-preset-loader@5.0.0:
+    resolution: {integrity: sha512-SetDSntXLk8Jh1NOAl1Gu5uLiCNSYenB5tm0YVeZKePRIgDW9lQImromTwLa3c/Gae298tsgOM+/CYT9XAl0NA==}
+    engines: {node: '>=18'}
     dev: true
 
-  /conventional-changelog-writer@7.0.1:
-    resolution: {integrity: sha512-Uo+R9neH3r/foIvQ0MKcsXkX642hdm9odUp7TqgFS7BsalTcjzRlIfWZrZR1gbxOozKucaKt5KAbjW8J8xRSmA==}
-    engines: {node: '>=16'}
+  /conventional-changelog-writer@8.0.1:
+    resolution: {integrity: sha512-hlqcy3xHred2gyYg/zXSMXraY2mjAYYo0msUCpK+BGyaVJMFCKWVXPIHiaacGO2GGp13kvHWXFhYmxT4QQqW3Q==}
+    engines: {node: '>=18'}
     hasBin: true
     dependencies:
-      conventional-commits-filter: 4.0.0
+      conventional-commits-filter: 5.0.0
       handlebars: 4.7.8
-      json-stringify-safe: 5.0.1
-      meow: 12.1.1
+      meow: 13.2.0
       semver: 7.7.1
-      split2: 4.2.0
     dev: true
 
-  /conventional-changelog@5.1.0:
-    resolution: {integrity: sha512-aWyE/P39wGYRPllcCEZDxTVEmhyLzTc9XA6z6rVfkuCD2UBnhV/sgSOKbQrEG5z9mEZJjnopjgQooTKxEg8mAg==}
-    engines: {node: '>=16'}
+  /conventional-changelog@6.0.0:
+    resolution: {integrity: sha512-tuUH8H/19VjtD9Ig7l6TQRh+Z0Yt0NZ6w/cCkkyzUbGQTnUEmKfGtkC9gGfVgCfOL1Rzno5NgNF4KY8vR+Jo3w==}
+    engines: {node: '>=18'}
     dependencies:
-      conventional-changelog-angular: 7.0.0
-      conventional-changelog-atom: 4.0.0
-      conventional-changelog-codemirror: 4.0.0
-      conventional-changelog-conventionalcommits: 7.0.2
-      conventional-changelog-core: 7.0.0
-      conventional-changelog-ember: 4.0.0
-      conventional-changelog-eslint: 5.0.0
-      conventional-changelog-express: 4.0.0
-      conventional-changelog-jquery: 5.0.0
-      conventional-changelog-jshint: 4.0.0
-      conventional-changelog-preset-loader: 4.1.0
+      conventional-changelog-angular: 8.0.0
+      conventional-changelog-atom: 5.0.0
+      conventional-changelog-codemirror: 5.0.0
+      conventional-changelog-conventionalcommits: 8.0.0
+      conventional-changelog-core: 8.0.0
+      conventional-changelog-ember: 5.0.0
+      conventional-changelog-eslint: 6.0.0
+      conventional-changelog-express: 5.0.0
+      conventional-changelog-jquery: 6.0.0
+      conventional-changelog-jshint: 5.0.0
+      conventional-changelog-preset-loader: 5.0.0
+    transitivePeerDependencies:
+      - conventional-commits-filter
     dev: true
 
-  /conventional-commits-filter@4.0.0:
-    resolution: {integrity: sha512-rnpnibcSOdFcdclpFwWa+pPlZJhXE7l+XK04zxhbWrhgpR96h33QLz8hITTXbcYICxVr3HZFtbtUAQ+4LdBo9A==}
-    engines: {node: '>=16'}
+  /conventional-commits-filter@5.0.0:
+    resolution: {integrity: sha512-tQMagCOC59EVgNZcC5zl7XqO30Wki9i9J3acbUvkaosCT6JX3EeFwJD7Qqp4MCikRnzS18WXV3BLIQ66ytu6+Q==}
+    engines: {node: '>=18'}
     dev: true
 
   /conventional-commits-parser@5.0.0:
@@ -6203,17 +6231,24 @@ packages:
       split2: 4.2.0
     dev: true
 
-  /conventional-recommended-bump@9.0.0:
-    resolution: {integrity: sha512-HR1yD0G5HgYAu6K0wJjLd7QGRK8MQDqqj6Tn1n/ja1dFwBCE6QmV+iSgQ5F7hkx7OUR/8bHpxJqYtXj2f/opPQ==}
-    engines: {node: '>=16'}
+  /conventional-commits-parser@6.1.0:
+    resolution: {integrity: sha512-5nxDo7TwKB5InYBl4ZC//1g9GRwB/F3TXOGR9hgUjMGfvSP4Vu5NkpNro2+1+TIEy1vwxApl5ircECr2ri5JIw==}
+    engines: {node: '>=18'}
     hasBin: true
     dependencies:
-      conventional-changelog-preset-loader: 4.1.0
-      conventional-commits-filter: 4.0.0
-      conventional-commits-parser: 5.0.0
-      git-raw-commits: 4.0.0
-      git-semver-tags: 7.0.1
-      meow: 12.1.1
+      meow: 13.2.0
+    dev: true
+
+  /conventional-recommended-bump@10.0.0:
+    resolution: {integrity: sha512-RK/fUnc2btot0oEVtrj3p2doImDSs7iiz/bftFCDzels0Qs1mxLghp+DFHMaOC0qiCI6sWzlTDyBFSYuot6pRA==}
+    engines: {node: '>=18'}
+    hasBin: true
+    dependencies:
+      '@conventional-changelog/git-client': 1.0.1(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.1.0)
+      conventional-changelog-preset-loader: 5.0.0
+      conventional-commits-filter: 5.0.0
+      conventional-commits-parser: 6.1.0
+      meow: 13.2.0
     dev: true
 
   /convert-source-map@2.0.0:
@@ -8084,6 +8119,11 @@ packages:
       fast-querystring: 1.1.2
       safe-regex2: 4.0.1
 
+  /find-up-simple@1.0.1:
+    resolution: {integrity: sha512-afd4O7zpqHeRyg4PfDQsXmlDe2PfdHtJt6Akt8jOWaApLOZk5JXs6VMR29lz03pRe9mpykrRCYIYxaJYcfpncQ==}
+    engines: {node: '>=18'}
+    dev: true
+
   /find-up@4.1.0:
     resolution: {integrity: sha512-PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw==}
     engines: {node: '>=8'}
@@ -8098,14 +8138,6 @@ packages:
     dependencies:
       locate-path: 6.0.0
       path-exists: 4.0.0
-    dev: true
-
-  /find-up@6.3.0:
-    resolution: {integrity: sha512-v2ZsoEuVHYy8ZIlYqwPe/39Cy+cFDzp4dXPaxNvkEuouymu+2Jbz0PxpKarJHYJTmv2HWT3O382qY8l4jMWthw==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-    dependencies:
-      locate-path: 7.2.0
-      path-exists: 5.0.0
     dev: true
 
   /find-up@7.0.0:
@@ -8394,21 +8426,24 @@ packages:
       split2: 4.2.0
     dev: true
 
-  /git-semver-tags@7.0.1:
-    resolution: {integrity: sha512-NY0ZHjJzyyNXHTDZmj+GG7PyuAKtMsyWSwh07CR2hOZFa+/yoTsXci/nF2obzL8UDhakFNkD9gNdt/Ed+cxh2Q==}
-    engines: {node: '>=16'}
+  /git-raw-commits@5.0.0(conventional-commits-parser@6.1.0):
+    resolution: {integrity: sha512-I2ZXrXeOc0KrCvC7swqtIFXFN+rbjnC7b2T943tvemIOVNl+XP8YnA9UVwqFhzzLClnSA60KR/qEjLpXzs73Qg==}
+    engines: {node: '>=18'}
     hasBin: true
     dependencies:
-      meow: 12.1.1
-      semver: 7.7.1
+      '@conventional-changelog/git-client': 1.0.1(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.1.0)
+      meow: 13.2.0
+    transitivePeerDependencies:
+      - conventional-commits-filter
+      - conventional-commits-parser
     dev: true
 
-  /git-semver-tags@8.0.0:
+  /git-semver-tags@8.0.0(conventional-commits-parser@6.1.0):
     resolution: {integrity: sha512-N7YRIklvPH3wYWAR2vysaqGLPRcpwQ0GKdlqTiVN5w1UmCdaeY3K8s6DMKRCh54DDdzyt/OAB6C8jgVtb7Y2Fg==}
     engines: {node: '>=18'}
     hasBin: true
     dependencies:
-      '@conventional-changelog/git-client': 1.0.1
+      '@conventional-changelog/git-client': 1.0.1(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.1.0)
       meow: 13.2.0
     transitivePeerDependencies:
       - conventional-commits-filter
@@ -8927,6 +8962,11 @@ packages:
   /imurmurhash@0.1.4:
     resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
     engines: {node: '>=0.8.19'}
+    dev: true
+
+  /index-to-position@0.1.2:
+    resolution: {integrity: sha512-MWDKS3AS1bGCHLBA2VLImJz42f7bJh8wQsTGCzI3j519/CASStoDONUBVz2I/VID0MpiX3SGSnbOD2xUalbE5g==}
+    engines: {node: '>=18'}
     dev: true
 
   /inflight@1.0.6:
@@ -10138,11 +10178,6 @@ packages:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
     dev: true
 
-  /json-parse-even-better-errors@3.0.2:
-    resolution: {integrity: sha512-fi0NG4bPjCHunUJffmLd0gxssIgkNmArMvis4iNah6Owg1MCJjWhEcDLmsK6iGkJq3tHwbDkTlce70/tmXN4cQ==}
-    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
-    dev: true
-
   /json-schema-ref-resolver@1.0.1:
     resolution: {integrity: sha512-EJAj1pgHc1hxF6vo2Z3s69fMjO1INq6eGHXZ8Z6wCQeldCuwxGK9Sxf4/cScGn3FZubCVUehfWtcDM/PLteCQw==}
     dependencies:
@@ -10163,10 +10198,6 @@ packages:
 
   /json-stable-stringify-without-jsonify@1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
-    dev: true
-
-  /json-stringify-safe@5.0.1:
-    resolution: {integrity: sha512-ZClg6AaYvamvYEE82d3Iyd3vSSIjQ+odgjaTzRuO3s7toCdFKczob2i0zCh7JE8kWn17yvAWhUVxvqGwUalsRA==}
     dev: true
 
   /json5@1.0.2:
@@ -10318,11 +10349,6 @@ packages:
 
   /lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
-    dev: true
-
-  /lines-and-columns@2.0.4:
-    resolution: {integrity: sha512-wM1+Z03eypVAVUCE7QdSqpVIvelbOakn1M0bPDoA4SGWPx3sNDVUiMo3L6To6WWGClB7VyXnhQ4Sn7gxiJbE6A==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: true
 
   /lint-staged@15.4.3:
@@ -11512,7 +11538,7 @@ packages:
       react-dom: 18.3.1(react@18.3.1)
     dev: false
 
-  /next@13.4.7(@babel/core@7.26.9)(react-dom@18.3.1)(react@18.3.1):
+  /next@13.4.7(@babel/core@7.26.9)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-M8z3k9VmG51SRT6v5uDKdJXcAqLzP3C+vaKfLIAM0Mhx1um1G7MDnO63+m52qPdZfrTFzMZNzfsgvm3ghuVHIQ==}
     engines: {node: '>=16.8.0'}
     hasBin: true
@@ -11535,9 +11561,9 @@ packages:
       busboy: 1.6.0
       caniuse-lite: 1.0.30001701
       postcss: 8.4.14
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      styled-jsx: 5.1.1(@babel/core@7.26.9)(react@18.3.1)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      styled-jsx: 5.1.1(@babel/core@7.26.9)(react@18.2.0)
       watchpack: 2.4.0
       zod: 3.21.4
     optionalDependencies:
@@ -12072,15 +12098,13 @@ packages:
       lines-and-columns: 1.2.4
     dev: true
 
-  /parse-json@7.1.1:
-    resolution: {integrity: sha512-SgOTCX/EZXtZxBE5eJ97P4yGM5n37BwRU+YMsH4vNzFqJV/oWFXXCmwFlgWUM4PrakybVOueJJ6pwHqSVhTFDw==}
-    engines: {node: '>=16'}
+  /parse-json@8.1.0:
+    resolution: {integrity: sha512-rum1bPifK5SSar35Z6EKZuYPJx85pkNaFrxBK3mwdfSJ1/WKbYrjoW/zTPSjRRamfmVX1ACBIdFAO0VRErW/EA==}
+    engines: {node: '>=18'}
     dependencies:
       '@babel/code-frame': 7.26.2
-      error-ex: 1.3.2
-      json-parse-even-better-errors: 3.0.2
-      lines-and-columns: 2.0.4
-      type-fest: 3.13.1
+      index-to-position: 0.1.2
+      type-fest: 4.36.0
     dev: true
 
   /parse-numeric-range@1.3.0:
@@ -12642,6 +12666,16 @@ packages:
       strip-json-comments: 2.0.1
     dev: true
 
+  /react-dom@18.2.0(react@18.2.0):
+    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
+    peerDependencies:
+      react: ^18.2.0
+    dependencies:
+      loose-envify: 1.4.0
+      react: 18.2.0
+      scheduler: 0.23.2
+    dev: false
+
   /react-dom@18.3.1(react@18.3.1):
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
@@ -12659,6 +12693,13 @@ packages:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
     dev: true
 
+  /react@18.2.0:
+    resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      loose-envify: 1.4.0
+    dev: false
+
   /react@18.3.1:
     resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
     engines: {node: '>=0.10.0'}
@@ -12671,23 +12712,24 @@ packages:
       pify: 2.3.0
     dev: true
 
-  /read-pkg-up@10.1.0:
-    resolution: {integrity: sha512-aNtBq4jR8NawpKJQldrQcSW9y/d+KWH4v24HWkHljOZ7H0av+YTGANBzRh9A5pw7v/bLVsLVPpOhJ7gHNVy8lA==}
-    engines: {node: '>=16'}
+  /read-package-up@11.0.0:
+    resolution: {integrity: sha512-MbgfoNPANMdb4oRBNg5eqLbB2t2r+o5Ua1pNt8BqGp4I0FJZhuVSOj3PaBPni4azWuSzEdNn2evevzVmEk1ohQ==}
+    engines: {node: '>=18'}
     dependencies:
-      find-up: 6.3.0
-      read-pkg: 8.1.0
+      find-up-simple: 1.0.1
+      read-pkg: 9.0.1
       type-fest: 4.36.0
     dev: true
 
-  /read-pkg@8.1.0:
-    resolution: {integrity: sha512-PORM8AgzXeskHO/WEv312k9U03B8K9JSiWF/8N9sUuFjBa+9SF2u6K7VClzXwDXab51jCd8Nd36CNM+zR97ScQ==}
-    engines: {node: '>=16'}
+  /read-pkg@9.0.1:
+    resolution: {integrity: sha512-9viLL4/n1BJUCT1NXVTdS1jtm80yDEgR5T4yCelII49Mbj0v1rZdKqj7zCiYdbB0CuCgdrvHcNogAKTFPBocFA==}
+    engines: {node: '>=18'}
     dependencies:
       '@types/normalize-package-data': 2.4.4
       normalize-package-data: 6.0.2
-      parse-json: 7.1.1
+      parse-json: 8.1.0
       type-fest: 4.36.0
+      unicorn-magic: 0.1.0
     dev: true
 
   /readable-stream@2.3.8:
@@ -13815,6 +13857,24 @@ packages:
       inline-style-parser: 0.1.1
     dev: false
 
+  /styled-jsx@5.1.1(@babel/core@7.26.9)(react@18.2.0):
+    resolution: {integrity: sha512-pW7uC1l4mBZ8ugbiZrcIsiIvVx1UmTfw7UkC3Um2tmfUq9Bhk8IiyEIPl6F8agHgjzku6j0xQEZbfA5uSgSaCw==}
+    engines: {node: '>= 12.0.0'}
+    peerDependencies:
+      '@babel/core': '*'
+      babel-plugin-macros: '*'
+      react: '>= 16.8.0 || 17.x.x || ^18.0.0-0'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      babel-plugin-macros:
+        optional: true
+    dependencies:
+      '@babel/core': 7.26.9
+      client-only: 0.0.1
+      react: 18.2.0
+    dev: false
+
   /styled-jsx@5.1.1(@babel/core@7.26.9)(react@18.3.1):
     resolution: {integrity: sha512-pW7uC1l4mBZ8ugbiZrcIsiIvVx1UmTfw7UkC3Um2tmfUq9Bhk8IiyEIPl6F8agHgjzku6j0xQEZbfA5uSgSaCw==}
     engines: {node: '>= 12.0.0'}
@@ -14409,11 +14469,6 @@ packages:
   /type-fest@2.19.0:
     resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
     engines: {node: '>=12.20'}
-    dev: true
-
-  /type-fest@3.13.1:
-    resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
-    engines: {node: '>=14.16'}
     dev: true
 
   /type-fest@4.36.0:
